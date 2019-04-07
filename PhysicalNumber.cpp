@@ -97,3 +97,9 @@ bool PhysicalNumber::operator!=(const PhysicalNumber pn)
 {
     return true;
 }
+
+ostream &operator<<(ostream &os, const PhysicalNumber &pn)
+{
+    os << pn.getValue() << "[" << pn.getUnit() << "]";
+    return os;
+}
