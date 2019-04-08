@@ -98,8 +98,14 @@ bool PhysicalNumber::operator!=(const PhysicalNumber pn)
     return true;
 }
 
-ostream &operator<<(ostream &os, const PhysicalNumber &pn)
+ostream &ariel::operator<<(ostream &os, const PhysicalNumber &pn)
 {
     os << pn.getValue() << "[" << pn.getUnit() << "]";
     return os;
+}
+
+istream &ariel::operator>>(istream &is, PhysicalNumber &pn)
+{
+    
+    return is;
 }

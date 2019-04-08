@@ -1,4 +1,6 @@
-#pragma once
+#ifndef UNIT_H
+#define UNIT_H
+
 #include <iostream>
 
 namespace ariel
@@ -17,7 +19,7 @@ enum class Unit
 
 };
 
-std::ostream &operator<<(std::ostream &os, Unit u)
+inline std::ostream &operator<<(std::ostream &os, Unit u)
 {
     switch (u)
     {
@@ -55,9 +57,11 @@ std::ostream &operator<<(std::ostream &os, Unit u)
     return os;
 }
 
-std::istream &operator>>(std::istream &is, Unit &u)
+inline std::istream &operator>>(std::istream &is, Unit &u)
 {
     is >> u;
     return is;
 }
 } // namespace ariel
+
+#endif
