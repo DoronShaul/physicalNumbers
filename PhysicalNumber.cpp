@@ -1,9 +1,11 @@
 #include <iostream>
+#include <string>
 #include "PhysicalNumber.h"
 #include "Unit.h"
+#include <sstream>
 
 using namespace ariel;
-using std::ostream, std::istream;
+using std::ostream, std::istream, std::string,std::cout;
 
 double rightPnConverted(const PhysicalNumber &pn, const PhysicalNumber &pn1)
 {
@@ -324,6 +326,25 @@ ostream &ariel::operator<<(ostream &os, const PhysicalNumber &pn)
 
 istream &ariel::operator>>(istream &is, PhysicalNumber &pn)
 {
+    string s, t, st;
+    string::size_type sz;
+    getline(is, s);
+    std::size_t pos=s.find("[");
+    t=s.substr(0,pos);
+    double d = std::stod(t, &sz);
+    st=s.substr(pos);
+    pn.value=d;
+    if (st=="[kg]"|| st=="[KG]"){pn.measurement=Unit::KG;}
+    else if (st=="[g]"|| st=="[G]"){pn.measurement=Unit::G;}
+    else if (st=="[ton]"|| st=="[TON]"){pn.measurement=Unit::TON;}
+    else if (st=="[sec]"|| st=="[SEC]"){pn.measurement=Unit::SEC;}
+    else if (st=="[min]"|| st=="[MIN]"){pn.measurement=Unit::MIN;}
+    else if (st=="[hour]"|| st=="[HOUR]"){pn.measurement=Unit::HOUR;}
+    else if (st=="[cm]"|| st=="[CM]"){pn.measurement=Unit::CM;}
+    else if (st=="[m]"|| st=="[M]"){pn.measurement=Unit::M;}
+    else if (st=="[km]"|| st=="[KM]"){pn.measurement=Unit::KM;}
+    
 
+    
     return is;
 }

@@ -75,7 +75,7 @@ int main() {
     .CHECK_OUTPUT(hour-hour, "0[hour]")
     
     .CHECK_OUTPUT(kg-g, "73.142[kg]")
-    .CHECK_OUTPUT(g+ton, "8000858[g]")
+    .CHECK_OUTPUT(g+kg, "74858[g]")
     .CHECK_OUTPUT((ton+=kg), "8.074[ton]")
     .CHECK_EQUAL(cm!=m, true)
     .CHECK_EQUAL(km<=m, false)
