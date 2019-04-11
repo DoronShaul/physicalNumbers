@@ -1,7 +1,7 @@
 #!make -f
 
 all: test
-	./$<
+		./$<
 
 demo: PhysicalNumberDemo.o PhysicalNumber.o
 	clang++-5.0 -std=c++17 $^ -o demo

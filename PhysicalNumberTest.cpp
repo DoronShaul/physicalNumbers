@@ -66,12 +66,12 @@ int main() {
     .CHECK_OUTPUT(km-cm, "3.99979[km]")
     .CHECK_OUTPUT(m+km, "4030[m]")
     .CHECK_OUTPUT((cm+=m), "3021[cm]")
-    .CHECK_OUTPUT((cm--), "20[cm]")
+    .CHECK_OUTPUT((cm--), "3020[cm]")
     
     .CHECK_OUTPUT((hour-=sec), "1.5[hour]")
     .CHECK_OUTPUT(min++, "16[min]")
-    .CHECK_OUTPUT(sec+min, "2700[sec]")
-    .CHECK_OUTPUT(min-hour, "-105[min]")   //negative result
+    .CHECK_OUTPUT(sec+min, "2760[sec]")
+    .CHECK_OUTPUT(min-hour, "-74[min]")   //negative result
     .CHECK_OUTPUT(hour-hour, "0[hour]")
     
     .CHECK_OUTPUT(kg-g, "73.142[kg]")

@@ -22,8 +22,8 @@ public:
   Unit getUnit() const { return this->measurement; }
   void setValue(double val) { this->value = val; }
   void setUnit(Unit u) { this->measurement = u; }
-  PhysicalNumber operator+(PhysicalNumber &pn);
-  PhysicalNumber operator-(PhysicalNumber &pn);
+  PhysicalNumber operator+(const PhysicalNumber &pn);
+  PhysicalNumber operator-(const PhysicalNumber &pn);
   PhysicalNumber &operator+=(const PhysicalNumber &pn);
   PhysicalNumber &operator-=(const PhysicalNumber &pn);
   PhysicalNumber &operator+();
@@ -32,12 +32,12 @@ public:
   PhysicalNumber &operator--();
   PhysicalNumber &operator++(int);
   PhysicalNumber &operator--(int);
-  bool operator<(const PhysicalNumber pn);
-  bool operator>(const PhysicalNumber pn);
-  bool operator<=(const PhysicalNumber pn);
-  bool operator>=(const PhysicalNumber pn);
-  bool operator==(const PhysicalNumber pn);
-  bool operator!=(const PhysicalNumber pn);
+  bool operator<(const PhysicalNumber &pn);
+  bool operator>(const PhysicalNumber &pn);
+  bool operator<=(const PhysicalNumber &pn);
+  bool operator>=(const PhysicalNumber &pn);
+  bool operator==(const PhysicalNumber &pn);
+  bool operator!=(const PhysicalNumber &pn);
   friend ostream &operator<<(ostream &os, const PhysicalNumber&);
   friend istream &operator>>(istream &is, PhysicalNumber&);
 };
