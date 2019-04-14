@@ -233,16 +233,18 @@ PhysicalNumber &PhysicalNumber::operator--()
     return *this;
 }
 
-PhysicalNumber &PhysicalNumber::operator++(int)
+PhysicalNumber PhysicalNumber::operator++(int)
 {
-    this->value = this->value + 1;
-    return *this;
+    PhysicalNumber res(*this);
+    ++(*this);
+    return res;
 }
 
-PhysicalNumber &PhysicalNumber::operator--(int)
+PhysicalNumber PhysicalNumber::operator--(int)
 {
-    this->value = this->value - 1;
-    return *this;
+    PhysicalNumber res(*this);
+    --(*this);
+    return res;
 }
 
 bool PhysicalNumber::operator>(const PhysicalNumber &pn)

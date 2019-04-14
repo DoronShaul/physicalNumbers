@@ -30,8 +30,8 @@ public:
   PhysicalNumber &operator-();
   PhysicalNumber &operator++();
   PhysicalNumber &operator--();
-  PhysicalNumber &operator++(int);
-  PhysicalNumber &operator--(int);
+  PhysicalNumber operator++(int);
+  PhysicalNumber operator--(int);
   bool operator<(const PhysicalNumber &pn);
   bool operator>(const PhysicalNumber &pn);
   bool operator<=(const PhysicalNumber &pn);

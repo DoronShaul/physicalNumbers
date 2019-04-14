@@ -69,7 +69,7 @@ int main() {
     .CHECK_OUTPUT((cm--), "3020[cm]")
     
     .CHECK_OUTPUT((hour-=sec), "1.5[hour]")
-    .CHECK_OUTPUT(min++, "16[min]")
+    .CHECK_OUTPUT(++min, "16[min]")
     .CHECK_OUTPUT(sec+min, "2760[sec]")
     .CHECK_OUTPUT(min-hour, "-74[min]")   //negative result
     .CHECK_OUTPUT(hour-hour, "0[hour]")
