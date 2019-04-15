@@ -181,11 +181,17 @@ double rightPnConverted(const PhysicalNumber &pn, const PhysicalNumber &pn1)
 //this method is a constructor.
 PhysicalNumber::PhysicalNumber(double k, Unit u)
 {
+    if (k<0)
+    {
+        throw std::invalid_argument("negative unit not allowed!");
+    }
+    else{
     value = k;
     measurement = u;
+    }
 }
 
-//this method is a distructor.
+//this method is a destructor.
 PhysicalNumber::~PhysicalNumber()
 {
     value = NULL;
