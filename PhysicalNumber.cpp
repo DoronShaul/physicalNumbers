@@ -7,6 +7,7 @@
 using namespace ariel;
 using std::ostream, std::istream, std::string,std::cout;
 
+//this method converts the right physical number's value to the measurement unit of the left one.
 double rightPnConverted(const PhysicalNumber &pn, const PhysicalNumber &pn1)
 {
     double right = pn1.getValue();
@@ -177,34 +178,47 @@ double rightPnConverted(const PhysicalNumber &pn, const PhysicalNumber &pn1)
     return 0;
 }
 
+//this method is a constructor.
 PhysicalNumber::PhysicalNumber(double k, Unit u)
 {
     value = k;
     measurement = u;
 }
 
+//this method is a distructor.
 PhysicalNumber::~PhysicalNumber()
 {
     value = NULL;
 }
+
+//this method overloads the operator+ (binary).
+//adds the right value and the left value if their units are of the same category.
 PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber &pn)
 {
     double right = rightPnConverted(*this, pn);
     PhysicalNumber ans(this->getValue() + right, this->getUnit());
     return ans;
 }
+
+//this method overloads the operator- (binary).
+//subtructs the right value from the left value if their units are of the same category.
 PhysicalNumber PhysicalNumber::operator-(const PhysicalNumber &pn)
 {
     double right = rightPnConverted(*this, pn);
     PhysicalNumber ans(this->getValue() - right, this->getUnit());
     return ans;
 }
+//this method overloads the operator+= (binary).
+//adds the right value to the left value if their units are of the same category.
 PhysicalNumber &PhysicalNumber::operator+=(const PhysicalNumber &pn)
 {
     double right = rightPnConverted(*this, pn);
     this->setValue(this->getValue() + right);
     return *this;
 }
+
+//this method overloads the operator-= (binary).
+//subtructs the right value from the left value if their units are of the same category.
 PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &pn)
 {
     double right = rightPnConverted(*this, pn);
@@ -212,27 +226,34 @@ PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &pn)
     return *this;
 }
 
+//this method overloads the operator+ (unary).
 PhysicalNumber &PhysicalNumber::operator+()
 {
     return *this;
 }
+
+//this method overloads the operator- (unary).
 PhysicalNumber &PhysicalNumber::operator-()
 {
     this->value = this->value * (-1);
     return *this;
 }
+
+//this method overloads the operator++ (prefix).
 PhysicalNumber &PhysicalNumber::operator++()
 {
     this->value = this->value + 1;
     return *this;
 }
 
+//this method overloads the operator-- (prefix).
 PhysicalNumber &PhysicalNumber::operator--()
 {
     this->value = this->value - 1;
     return *this;
 }
 
+//this method overloads the operator++ (postfix).
 PhysicalNumber PhysicalNumber::operator++(int)
 {
     PhysicalNumber res(*this);
@@ -240,6 +261,7 @@ PhysicalNumber PhysicalNumber::operator++(int)
     return res;
 }
 
+//this method overloads the operator-- (postfix).
 PhysicalNumber PhysicalNumber::operator--(int)
 {
     PhysicalNumber res(*this);
@@ -247,6 +269,7 @@ PhysicalNumber PhysicalNumber::operator--(int)
     return res;
 }
 
+//this method overloads the operator>.
 bool PhysicalNumber::operator>(const PhysicalNumber &pn)
 {
     double right = rightPnConverted(*this, pn);
@@ -259,6 +282,8 @@ bool PhysicalNumber::operator>(const PhysicalNumber &pn)
         return false;
     }
 }
+
+//this method overloads the operator<.
 bool PhysicalNumber::operator<(const PhysicalNumber &pn)
 {
     double right = rightPnConverted(*this, pn);
@@ -271,6 +296,8 @@ bool PhysicalNumber::operator<(const PhysicalNumber &pn)
         return false;
     }
 }
+
+//this method overloads the operator<=.
 bool PhysicalNumber::operator<=(const PhysicalNumber &pn)
 {
     double right = rightPnConverted(*this, pn);
@@ -283,6 +310,8 @@ bool PhysicalNumber::operator<=(const PhysicalNumber &pn)
         return false;
     }
 }
+
+//this method overloads the operator>=.
 bool PhysicalNumber::operator>=(const PhysicalNumber &pn)
 {
     double right = rightPnConverted(*this, pn);
@@ -295,6 +324,8 @@ bool PhysicalNumber::operator>=(const PhysicalNumber &pn)
         return false;
     }
 }
+
+//this method overloads the operator==.
 bool PhysicalNumber::operator==(const PhysicalNumber &pn)
 {
     double right = rightPnConverted(*this, pn);
@@ -307,6 +338,8 @@ bool PhysicalNumber::operator==(const PhysicalNumber &pn)
         return false;
     }
 }
+
+//this method overloads the operator!=.
 bool PhysicalNumber::operator!=(const PhysicalNumber &pn)
 {
     double right = rightPnConverted(*this, pn);
@@ -319,32 +352,34 @@ bool PhysicalNumber::operator!=(const PhysicalNumber &pn)
         return false;
     }
 }
-
+//this method overloads the operator<<. the output is "value[unit]".
 ostream &ariel::operator<<(ostream &os, const PhysicalNumber &pn)
 {
     os << pn.getValue() << "[" << pn.getUnit() << "]";
     return os;
 }
 
+//this method overloads the operator>>.
 istream &ariel::operator>>(istream &is, PhysicalNumber &pn)
 {
-    string s, t, st;
+    string input, valueStr, unitStr;
     string::size_type sz;
-    getline(is, s);
-    std::size_t pos=s.find("[");
-    t=s.substr(0,pos);
-    double d = std::stod(t, &sz);
-    st=s.substr(pos);
-    pn.value=d;
-    if (st=="[kg]"|| st=="[KG]"){pn.measurement=Unit::KG;}
-    else if (st=="[g]"|| st=="[G]"){pn.measurement=Unit::G;}
-    else if (st=="[ton]"|| st=="[TON]"){pn.measurement=Unit::TON;}
-    else if (st=="[sec]"|| st=="[SEC]"){pn.measurement=Unit::SEC;}
-    else if (st=="[min]"|| st=="[MIN]"){pn.measurement=Unit::MIN;}
-    else if (st=="[hour]"|| st=="[HOUR]"){pn.measurement=Unit::HOUR;}
-    else if (st=="[cm]"|| st=="[CM]"){pn.measurement=Unit::CM;}
-    else if (st=="[m]"|| st=="[M]"){pn.measurement=Unit::M;}
-    else if (st=="[km]"|| st=="[KM]"){pn.measurement=Unit::KM;}
+    getline(is, input);      //inserts the input stream (is) to the input string (input).
+    std::size_t pos=input.find("[");   //finds the position of the char '[' in the input string.
+    valueStr=input.substr(0,pos);      //substring the input string from the first char to pos(that's the value).
+    double val = std::stod(valueStr, &sz);   //converts the valueStr to a double and puts it in val parameter.
+    unitStr=input.substr(pos);   //substring the input string from the char '[' to the end(that's the unit).
+    pn.value=val;
+
+    if (unitStr=="[kg]"|| unitStr=="[KG]"){pn.measurement=Unit::KG;}
+    else if (unitStr=="[g]"|| unitStr=="[G]"){pn.measurement=Unit::G;}
+    else if (unitStr=="[ton]"|| unitStr=="[TON]"){pn.measurement=Unit::TON;}
+    else if (unitStr=="[sec]"|| unitStr=="[SEC]"){pn.measurement=Unit::SEC;}
+    else if (unitStr=="[min]"|| unitStr=="[MIN]"){pn.measurement=Unit::MIN;}
+    else if (unitStr=="[hour]"|| unitStr=="[HOUR]"){pn.measurement=Unit::HOUR;}
+    else if (unitStr=="[cm]"|| unitStr=="[CM]"){pn.measurement=Unit::CM;}
+    else if (unitStr=="[m]"|| unitStr=="[M]"){pn.measurement=Unit::M;}
+    else if (unitStr=="[km]"|| unitStr=="[KM]"){pn.measurement=Unit::KM;}
     
 
     
