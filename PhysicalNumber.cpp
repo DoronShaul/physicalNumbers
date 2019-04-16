@@ -409,9 +409,9 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &pn)
         }
     }
 
-    catch (exception &e)
+    catch (std::exception &e)
     {
-        
+
     }
 
     pn.value = val;
