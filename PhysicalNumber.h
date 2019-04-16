@@ -17,7 +17,6 @@ private:
 
 public:
   PhysicalNumber(double value, Unit measurement);
-  ~PhysicalNumber();
   double getValue() const { return this->value; }
   Unit getUnit() const { return this->measurement; }
   void setValue(double val) { this->value = val; }

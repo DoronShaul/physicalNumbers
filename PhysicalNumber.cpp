@@ -185,12 +185,6 @@ PhysicalNumber::PhysicalNumber(double k, Unit u)
     measurement = u;
 }
 
-//this method is a destructor.
-PhysicalNumber::~PhysicalNumber()
-{
-    value = NULL;
-}
-
 //this method overloads the operator+ (binary).
 //adds the right value and the left value if their units are of the same category.
 PhysicalNumber PhysicalNumber::operator+(const PhysicalNumber &pn)
