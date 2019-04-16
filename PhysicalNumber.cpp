@@ -5,7 +5,7 @@
 #include <sstream>
 
 using namespace ariel;
-using std::ostream, std::istream, std::string,std::cout;
+using std::ostream, std::istream, std::string, std::cout;
 
 //this method converts the right physical number's value to the measurement unit of the left one.
 double rightPnConverted(const PhysicalNumber &pn, const PhysicalNumber &pn1)
@@ -181,14 +181,8 @@ double rightPnConverted(const PhysicalNumber &pn, const PhysicalNumber &pn1)
 //this method is a constructor.
 PhysicalNumber::PhysicalNumber(double k, Unit u)
 {
-    if (k<0)
-    {
-        throw std::invalid_argument("negative unit not allowed!");
-    }
-    else{
     value = k;
     measurement = u;
-    }
 }
 
 //this method is a destructor.
@@ -233,16 +227,15 @@ PhysicalNumber &PhysicalNumber::operator-=(const PhysicalNumber &pn)
 }
 
 //this method overloads the operator+ (unary).
-PhysicalNumber &PhysicalNumber::operator+()
+PhysicalNumber PhysicalNumber::operator+()
 {
-    return *this;
+    return PhysicalNumber(this->value, this->measurement);
 }
 
 //this method overloads the operator- (unary).
-PhysicalNumber &PhysicalNumber::operator-()
+PhysicalNumber PhysicalNumber::operator-()
 {
-    this->value = this->value * (-1);
-    return *this;
+    return PhysicalNumber(this->value*(-1), this->measurement);
 }
 
 //this method overloads the operator++ (prefix).
@@ -370,24 +363,53 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &pn)
 {
     string input, valueStr, unitStr;
     string::size_type sz;
-    getline(is, input);      //inserts the input stream (is) to the input string (input).
-    std::size_t pos=input.find("[");   //finds the position of the char '[' in the input string.
-    valueStr=input.substr(0,pos);      //substring the input string from the first char to pos(that's the value).
-    double val = std::stod(valueStr, &sz);   //converts the valueStr to a double and puts it in val parameter.
-    unitStr=input.substr(pos);   //substring the input string from the char '[' to the end(that's the unit).
-    pn.value=val;
+    getline(is, input);                    //inserts the input stream (is) to the input string (input).
+    std::size_t pos = input.find("[");     //finds the position of the char '[' in the input string.
+    valueStr = input.substr(0, pos);       //substring the input string from the first char to pos(that's the value).
+    double val = std::stod(valueStr, &sz); //converts the valueStr to a double and puts it in val parameter.
+    unitStr = input.substr(pos);           //substring the input string from the char '[' to the end(that's the unit).
+    pn.value = val;
 
-    if (unitStr=="[kg]"|| unitStr=="[KG]"){pn.measurement=Unit::KG;}
-    else if (unitStr=="[g]"|| unitStr=="[G]"){pn.measurement=Unit::G;}
-    else if (unitStr=="[ton]"|| unitStr=="[TON]"){pn.measurement=Unit::TON;}
-    else if (unitStr=="[sec]"|| unitStr=="[SEC]"){pn.measurement=Unit::SEC;}
-    else if (unitStr=="[min]"|| unitStr=="[MIN]"){pn.measurement=Unit::MIN;}
-    else if (unitStr=="[hour]"|| unitStr=="[HOUR]"){pn.measurement=Unit::HOUR;}
-    else if (unitStr=="[cm]"|| unitStr=="[CM]"){pn.measurement=Unit::CM;}
-    else if (unitStr=="[m]"|| unitStr=="[M]"){pn.measurement=Unit::M;}
-    else if (unitStr=="[km]"|| unitStr=="[KM]"){pn.measurement=Unit::KM;}
-    
+    if (unitStr == "[kg]" || unitStr == "[KG]")
+    {
+        pn.measurement = Unit::KG;
+    }
+    else if (unitStr == "[g]" || unitStr == "[G]")
+    {
+        pn.measurement = Unit::G;
+    }
+    else if (unitStr == "[ton]" || unitStr == "[TON]")
+    {
+        pn.measurement = Unit::TON;
+    }
+    else if (unitStr == "[sec]" || unitStr == "[SEC]")
+    {
+        pn.measurement = Unit::SEC;
+    }
+    else if (unitStr == "[min]" || unitStr == "[MIN]")
+    {
+        pn.measurement = Unit::MIN;
+    }
+    else if (unitStr == "[hour]" || unitStr == "[HOUR]")
+    {
+        pn.measurement = Unit::HOUR;
+    }
+    else if (unitStr == "[cm]" || unitStr == "[CM]")
+    {
+        pn.measurement = Unit::CM;
+    }
+    else if (unitStr == "[m]" || unitStr == "[M]")
+    {
+        pn.measurement = Unit::M;
+    }
+    else if (unitStr == "[km]" || unitStr == "[KM]")
+    {
+        pn.measurement = Unit::KM;
+    }
+    else
+    {
+        throw std::invalid_argument("unknown unit");
+    }
 
-    
     return is;
 }

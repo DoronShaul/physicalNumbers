@@ -65,18 +65,16 @@ int main()
 
         // YOUR TESTS - INSERT AS MANY AS YOU WANT
         .CHECK_OUTPUT(-m, "-30[m]")
-        .CHECK_OUTPUT(-m, "30[m]")
         .CHECK_OUTPUT(km - cm, "3.99979[km]")
         .CHECK_OUTPUT(m + km, "4030[m]")
         .CHECK_OUTPUT((cm += m), "3021[cm]")
         .CHECK_OUTPUT((cm--), "3021[cm]")
-        .CHECK_OK(cout << cm <<endl) //prints 3020[cm]
         .CHECK_OK(istringstream("300[kg]")>>inputUnit)
+        .CHECK_THROWS(istringstream("abc[ton]")>>inputUnit)
 
         .CHECK_OUTPUT((hour -= sec), "1.5[hour]")
         .CHECK_OUTPUT(++min, "16[min]")
         .CHECK_OUTPUT(sec + min, "2760[sec]")
-        .CHECK_THROWS(min - hour)
         .CHECK_OUTPUT(hour - hour, "0[hour]")
 
         .CHECK_OUTPUT(kg - g, "73.142[kg]")

@@ -26,8 +26,8 @@ public:
   PhysicalNumber operator-(const PhysicalNumber &pn);
   PhysicalNumber &operator+=(const PhysicalNumber &pn);
   PhysicalNumber &operator-=(const PhysicalNumber &pn);
-  PhysicalNumber &operator+();
-  PhysicalNumber &operator-();
+  PhysicalNumber operator+();
+  PhysicalNumber operator-();
   PhysicalNumber &operator++();
   PhysicalNumber &operator--();
   PhysicalNumber operator++(int);
