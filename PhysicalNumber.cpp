@@ -363,13 +363,13 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &pn)
 {
     string input, valueStr, unitStr;
     string::size_type sz;
-    getline(is, input);                    //inserts the input stream (is) to the input string (input).
-    std::size_t pos = input.find("[");     //finds the position of the char '[' in the input string.
-    valueStr = input.substr(0, pos);       //substring the input string from the first char to pos(that's the value).
-    double val = std::stod(valueStr, &sz); //converts the valueStr to a double and puts it in val parameter.
-    unitStr = input.substr(pos);           //substring the input string from the char '[' to the end(that's the unit).
     try
     {
+        getline(is, input);                    //inserts the input stream (is) to the input string (input).
+        std::size_t pos = input.find("[");     //finds the position of the char '[' in the input string.
+        valueStr = input.substr(0, pos);       //substring the input string from the first char to pos(that's the value).
+        double val = std::stod(valueStr, &sz); //converts the valueStr to a double and puts it in val parameter.
+        unitStr = input.substr(pos);           //substring the input string from the char '[' to the end(that's the unit).
 
         if (unitStr == "[kg]" || unitStr == "[KG]")
         {
@@ -420,5 +420,5 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &pn)
         cout << "caught exception: " << e.what() << endl;
     }
 
-        return is;
+    return is;
 }
