@@ -235,7 +235,7 @@ PhysicalNumber PhysicalNumber::operator+()
 //this method overloads the operator- (unary).
 PhysicalNumber PhysicalNumber::operator-()
 {
-    return PhysicalNumber(this->value*(-1), this->measurement);
+    return PhysicalNumber(this->value * (-1), this->measurement);
 }
 
 //this method overloads the operator++ (prefix).
@@ -368,48 +368,52 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &pn)
     valueStr = input.substr(0, pos);       //substring the input string from the first char to pos(that's the value).
     double val = std::stod(valueStr, &sz); //converts the valueStr to a double and puts it in val parameter.
     unitStr = input.substr(pos);           //substring the input string from the char '[' to the end(that's the unit).
-    
-    if (unitStr == "[kg]" || unitStr == "[KG]")
+    try
     {
-        pn.measurement = Unit::KG;
+
+        if (unitStr == "[kg]" || unitStr == "[KG]")
+        {
+            pn.measurement = Unit::KG;
+        }
+        else if (unitStr == "[g]" || unitStr == "[G]")
+        {
+            pn.measurement = Unit::G;
+        }
+        else if (unitStr == "[ton]" || unitStr == "[TON]")
+        {
+            pn.measurement = Unit::TON;
+        }
+        else if (unitStr == "[sec]" || unitStr == "[SEC]")
+        {
+            pn.measurement = Unit::SEC;
+        }
+        else if (unitStr == "[min]" || unitStr == "[MIN]")
+        {
+            pn.measurement = Unit::MIN;
+        }
+        else if (unitStr == "[hour]" || unitStr == "[HOUR]")
+        {
+            pn.measurement = Unit::HOUR;
+        }
+        else if (unitStr == "[cm]" || unitStr == "[CM]")
+        {
+            pn.measurement = Unit::CM;
+        }
+        else if (unitStr == "[m]" || unitStr == "[M]")
+        {
+            pn.measurement = Unit::M;
+        }
+        else if (unitStr == "[km]" || unitStr == "[KM]")
+        {
+            pn.measurement = Unit::KM;
+        }
     }
-    else if (unitStr == "[g]" || unitStr == "[G]")
+
+    catch (exception &e)
     {
-        pn.measurement = Unit::G;
+        
     }
-    else if (unitStr == "[ton]" || unitStr == "[TON]")
-    {
-        pn.measurement = Unit::TON;
-    }
-    else if (unitStr == "[sec]" || unitStr == "[SEC]")
-    {
-        pn.measurement = Unit::SEC;
-    }
-    else if (unitStr == "[min]" || unitStr == "[MIN]")
-    {
-        pn.measurement = Unit::MIN;
-    }
-    else if (unitStr == "[hour]" || unitStr == "[HOUR]")
-    {
-        pn.measurement = Unit::HOUR;
-    }
-    else if (unitStr == "[cm]" || unitStr == "[CM]")
-    {
-        pn.measurement = Unit::CM;
-    }
-    else if (unitStr == "[m]" || unitStr == "[M]")
-    {
-        pn.measurement = Unit::M;
-    }
-    else if (unitStr == "[km]" || unitStr == "[KM]")
-    {
-        pn.measurement = Unit::KM;
-    }
-    else
-    {
-        throw std::invalid_argument("unknown unit");
-    }
-    
+
     pn.value = val;
     return is;
 }
