@@ -368,8 +368,7 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &pn)
     valueStr = input.substr(0, pos);       //substring the input string from the first char to pos(that's the value).
     double val = std::stod(valueStr, &sz); //converts the valueStr to a double and puts it in val parameter.
     unitStr = input.substr(pos);           //substring the input string from the char '[' to the end(that's the unit).
-    pn.value = val;
-
+    
     if (unitStr == "[kg]" || unitStr == "[KG]")
     {
         pn.measurement = Unit::KG;
@@ -410,6 +409,7 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &pn)
     {
         throw std::invalid_argument("unknown unit");
     }
-
+    
+    pn.value = val;
     return is;
 }
