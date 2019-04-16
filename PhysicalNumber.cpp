@@ -5,7 +5,7 @@
 #include <sstream>
 
 using namespace ariel;
-using std::ostream, std::istream, std::string, std::cout;
+using std::ostream, std::istream, std::string, std::cout, std::endl;
 
 //this method converts the right physical number's value to the measurement unit of the left one.
 double rightPnConverted(const PhysicalNumber &pn, const PhysicalNumber &pn1)
@@ -411,12 +411,14 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &pn)
         {
             throw std::invalid_argument("unknown unit");
         }
+
+        pn.value = val;
     }
 
     catch (std::exception &e)
     {
+        cout << "caught exception: " << e.what() << endl;
     }
 
-    pn.value = val;
-    return is;
+        return is;
 }
