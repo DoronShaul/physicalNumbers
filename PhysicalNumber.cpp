@@ -348,6 +348,7 @@ bool PhysicalNumber::operator!=(const PhysicalNumber &pn)
 //this method overloads the operator<<. the output is "value[unit]".
 ostream &ariel::operator<<(ostream &os, const PhysicalNumber &pn)
 {
+    os.precision(6);
     os << pn.getValue() << "[" << pn.getUnit() << "]";
     return os;
 }
