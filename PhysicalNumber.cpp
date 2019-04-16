@@ -407,11 +407,14 @@ istream &ariel::operator>>(istream &is, PhysicalNumber &pn)
         {
             pn.measurement = Unit::KM;
         }
+        else
+        {
+            throw std::invalid_argument("unknown unit");
+        }
     }
 
     catch (std::exception &e)
     {
-
     }
 
     pn.value = val;
